@@ -1,6 +1,6 @@
 version: "3"
 services:
-  proxy:
+  onboarding-app:
     container_name: onboarding-app
     build:
       context: ./onboarding-app
@@ -10,10 +10,8 @@ services:
     networks:
         - swiggy-temporal-network
 
-  demo:
+  onboarding-service:
     container_name: onboarding-service
-    depends_on:
-      - 
     build:
       context: ./onboarding-service
       dockerfile: Dockerfile
