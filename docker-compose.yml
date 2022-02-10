@@ -1,0 +1,28 @@
+version: "3"
+services:
+  proxy:
+    container_name: onboarding-app
+    build:
+      context: ./onboarding-app
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000" 
+    networks:
+        - swiggy-temporal-network
+
+  demo:
+    container_name: onboarding-service
+    depends_on:
+      - 
+    build:
+      context: ./onboarding-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - swiggy-temporal-network
+
+networks:
+  swiggy-temporal-network:
+    external:
+      name: temporal-network
