@@ -1,9 +1,9 @@
 package org.acme.patient.onboarding.app;
 
-import org.acme.patient.onboarding.model.Doctor;
-import org.acme.patient.onboarding.model.Hospital;
-import org.acme.patient.onboarding.model.Patient;
 import org.acme.patient.onboarding.utils.OnboardingServiceClient;
+
+import model.Doctor;
+import model.Hospital;
 
 public class ServiceExecutorImpl implements ServiceExecutor {
 

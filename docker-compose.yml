@@ -1,23 +1,10 @@
 version: "3"
 services:
-
-  onboarding-model:
-    container_name: onboarding-model
-    build:
-      context: ./onboarding-model
-      dockerfile: Dockerfile
-    ports:
-      - "1008:1008"
-    networks:
-      - swiggy-temporal-network
-
   onboarding-app:
     container_name: onboarding-app
     build:
       context: ./onboarding-app
       dockerfile: Dockerfile
-    depends_on:
-      - onboarding-model
     ports:
       - "9000:9000" 
     networks:
@@ -28,8 +15,6 @@ services:
     build:
       context: ./onboarding-service
       dockerfile: Dockerfile
-    depends_on:
-      - onboarding-model
     ports:
       - "8080:8080"
     networks:

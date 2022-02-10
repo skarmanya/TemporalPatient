@@ -1,7 +1,8 @@
 package org.acme.patient.onboarding.app;
 
-import org.acme.patient.onboarding.model.Patient;
 import org.acme.patient.onboarding.utils.ActivityStubUtils;
+
+import model.Patient;
 
 public class OnboardingImpl implements Onboarding {
 

@@ -1,14 +1,18 @@
 package org.acme.patient.onboarding;
 
-import io.temporal.client.WorkflowOptions;
-import org.acme.patient.onboarding.model.Patient;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
+
 import org.acme.patient.onboarding.app.Onboarding;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.*;
+import io.temporal.client.WorkflowOptions;
+import model.Patient;
 
 @ApplicationScoped
 @Path("/onboard")

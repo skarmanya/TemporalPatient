@@ -1,12 +1,13 @@
 package org.acme.patient.onboarding.utils;
 
-import org.acme.patient.onboarding.model.Doctor;
-import org.acme.patient.onboarding.model.Hospital;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
-import java.util.ArrayList;
-import java.util.List;
+
+import model.Doctor;
+import model.Hospital;
 
 @ApplicationScoped
 public class HospitalsAndDoctorsProducer {

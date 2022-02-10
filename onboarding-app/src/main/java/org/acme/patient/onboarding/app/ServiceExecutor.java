@@ -1,8 +1,8 @@
 package org.acme.patient.onboarding.app;
 
 import io.temporal.activity.ActivityInterface;
-import org.acme.patient.onboarding.model.Doctor;
-import org.acme.patient.onboarding.model.Hospital;
+import model.Doctor;
+import model.Hospital;
 
 @ActivityInterface
 public interface ServiceExecutor {
