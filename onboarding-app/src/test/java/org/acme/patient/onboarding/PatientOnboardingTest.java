@@ -18,70 +18,70 @@ import org.junit.jupiter.api.*;
 
 public class PatientOnboardingTest {
 
-    private static TestWorkflowEnvironment testEnv;
-    private static Worker worker;
-    private static WorkflowClient client;
-    private static String taskQueue = "TestOnboardingTaskQueue";
+    // private static TestWorkflowEnvironment testEnv;
+    // private static Worker worker;
+    // private static WorkflowClient client;
+    // private static String taskQueue = "TestOnboardingTaskQueue";
 
-    @BeforeAll
-    public static void setUp() {
-        testEnv = TestWorkflowEnvironment.newInstance();
-        worker = testEnv.newWorker(taskQueue);
-        worker.registerWorkflowImplementationTypes(OnboardingImpl.class);
+    // @BeforeAll
+    // public static void setUp() {
+    //     testEnv = TestWorkflowEnvironment.newInstance();
+    //     worker = testEnv.newWorker(taskQueue);
+    //     worker.registerWorkflowImplementationTypes(OnboardingImpl.class);
 
-        client = testEnv.getWorkflowClient();
-    }
+    //     client = testEnv.getWorkflowClient();
+    // }
 
-    @AfterAll
-    public static void tearDown() {
-        testEnv.close();
-    }
+    // @AfterAll
+    // public static void tearDown() {
+    //     testEnv.close();
+    // }
 
-    @Test
-    public void testMockedPatientOnboarding() {
+    // @Test
+    // public void testMockedPatientOnboarding() {
 
-        // mock our workflow activities
-        ServiceExecutor activities = mock(ServiceExecutor.class);
+    //     // mock our workflow activities
+    //     ServiceExecutor activities = mock(ServiceExecutor.class);
 
-        Patient testPatient = new Patient("123", "Tester", "22", "30041", "", "", "Asthma", "tester@test.io", "555-55-5555", "TEXT");
-        Patient onboardedPatient = new Patient("123", "Tester", "22", "30041", "", "", "Asthma", "tester@test.io", "555-55-5555", "TEXT");
-        Hospital testHospital = new Hospital();
-        Doctor testDoctor = new Doctor();
+    //     Patient testPatient = new Patient("123", "Tester", "22", "30041", "", "", "Asthma", "tester@test.io", "555-55-5555", "TEXT");
+    //     Patient onboardedPatient = new Patient("123", "Tester", "22", "30041", "", "", "Asthma", "tester@test.io", "555-55-5555", "TEXT");
+    //     Hospital testHospital = new Hospital();
+    //     Doctor testDoctor = new Doctor();
 
-        onboardedPatient.setOnboarded("yes");
+    //     onboardedPatient.setOnboarded("yes");
 
-        // mock activity methods
-        when(activities.assignHospitalToPatient(anyString())).thenReturn(testHospital);
-        when(activities.assignDoctorToPatient(anyString())).thenReturn(testDoctor);
-        when(activities.assignDoctorToPatient(anyString())).thenReturn(testDoctor);
-        when(activities.finalizeOnboarding()).thenReturn("yes");
-        doNothing().when(activities).notifyViaEmail(anyString());
-        doNothing().when(activities).notifyViaText(anyString());
+    //     // mock activity methods
+    //     when(activities.assignHospitalToPatient(anyString())).thenReturn(testHospital);
+    //     when(activities.assignDoctorToPatient(anyString())).thenReturn(testDoctor);
+    //     when(activities.assignDoctorToPatient(anyString())).thenReturn(testDoctor);
+    //     when(activities.finalizeOnboarding()).thenReturn("yes");
+    //     doNothing().when(activities).notifyViaEmail(anyString());
+    //     doNothing().when(activities).notifyViaText(anyString());
 
-        worker.registerActivitiesImplementations(activities);
+    //     worker.registerActivitiesImplementations(activities);
 
-        testEnv.start();
+    //     testEnv.start();
 
-        Onboarding workflow =
-                client.newWorkflowStub(
-                        Onboarding.class, WorkflowOptions.newBuilder()
-                                .setWorkflowId(testPatient.getId())
-                                .setTaskQueue(taskQueue).build());
+    //     Onboarding workflow =
+    //             client.newWorkflowStub(
+    //                     Onboarding.class, WorkflowOptions.newBuilder()
+    //                             .setWorkflowId(testPatient.getId())
+    //                             .setTaskQueue(taskQueue).build());
 
-        // Execute a workflow waiting for it to complete.
-        Patient resultPatient = workflow.onboardNewPatient(testPatient);
+    //     // Execute a workflow waiting for it to complete.
+    //     Patient resultPatient = workflow.onboardNewPatient(testPatient);
 
-        // Small checks
-        Assertions.assertNotNull(resultPatient);
-        Assertions.assertEquals("Tester", resultPatient.getName());
-        Assertions.assertEquals("yes", resultPatient.getOnboarded());
-    }
+    //     // Small checks
+    //     Assertions.assertNotNull(resultPatient);
+    //     Assertions.assertEquals("Tester", resultPatient.getName());
+    //     Assertions.assertEquals("yes", resultPatient.getOnboarded());
+    // }
 
-    //@Test
-    public void testOnboardingReplay() throws Exception {
-        WorkflowReplayer.replayWorkflowExecutionFromResource(
-                "testrun.json", OnboardingImpl.class);
-    }
+    // //@Test
+    // public void testOnboardingReplay() throws Exception {
+    //     WorkflowReplayer.replayWorkflowExecutionFromResource(
+    //             "testrun.json", OnboardingImpl.class);
+    // }
 
 
 }

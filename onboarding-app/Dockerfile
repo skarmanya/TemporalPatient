@@ -1,10 +1,12 @@
-FROM openjdk:11
+FROM maven:3.6.0-jdk-11-slim AS build
 
 LABEL COMPANY="Publicis Sapient"
-LABEL APPLICATION="Onboarding-app Service"
+LABEL APPLICATION="Onboarding-app"
 
-COPY /target/onboarding-app-0.0.1-SNAPSHOT.jar onboarding-app.jar
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn /home/app/pom.xml clean package clean install quarkus:dev
 
-EXPOSE 8001
+EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "onboarding-app.jar"]
+# ENTRYPOINT ["java", "-jar", "onboarding-app.jar"]
